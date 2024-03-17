@@ -1,10 +1,10 @@
-﻿using System;
-using WebCV.Infrastructure.Concrates;
-using WebCV.Domain.Models.Stables;
+﻿using WebCV.Domain.Models.Stables;
+using MediatR;
+using Microsoft.AspNetCore.Http;
 
-namespace WebCV.Domain.Models.Entities
+namespace WebCV.Application.Modules.PersonModule.Commands.PersonEditCommand
 {
-    public class Person
+    public class PersonEditRequest : IRequest
     {
         public int Id { get; set; }
         public string FullName { get; set; }
@@ -15,15 +15,11 @@ namespace WebCV.Domain.Models.Entities
         public string Bio { get; set; }
         public string? Fax { get; set; }
         public string? Website { get; set; }
-        public string AttachmentPath { get; set; }
+        public IFormFile Attachment { get; set; }
         public CareerLevels CareerLevel { get; set; }
-        public DateTime CreatedAt { get; set; }
-
 
         public string Phone { get; set; }
         public string Email { get; set; }
-
-
 
     }
 }

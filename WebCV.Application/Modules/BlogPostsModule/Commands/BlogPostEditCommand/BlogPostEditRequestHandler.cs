@@ -24,7 +24,7 @@ namespace WebCV.Application.Modules.BlogPostsModule.Commands.BlogPostEditCommand
 
             if (request.Image is not null)
             {
-                entity.ImagePath = await fileService.ChangeFileAsync(entity.ImagePath, request.Image);
+                entity.ImagePath = await fileService.ChangeFileAsyncImage(entity.ImagePath, request.Image);
             }
 
             await blogPostRepository.SaveAsync(cancellationToken);

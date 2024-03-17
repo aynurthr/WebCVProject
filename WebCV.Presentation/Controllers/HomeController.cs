@@ -1,6 +1,8 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using WebCV.Application.Modules.ContactPostsModule.Commands.ContactPostApplyCommand;
+using WebCV.Application.Modules.PersonModule.Commands.PersonEditCommand;
+using WebCV.Application.Modules.PersonModule.Queries.PersonGetByIdQuery;
 
 namespace WebCV.Presentation.Controllers
 {
@@ -13,9 +15,24 @@ namespace WebCV.Presentation.Controllers
         {
             this.mediator = mediator;
         }
-        public IActionResult Index()
+
+        public async Task<IActionResult> Index(PersonGetByIdRequest request)
         {
-            return View();
+            var response = await mediator.Send(request);
+            return View(response);
+        }
+
+        public async Task<IActionResult> Edit([FromRoute] PersonGetByIdRequest request)
+        {
+            var response = await mediator.Send(request);
+            return View(response);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit([FromForm] PersonEditRequest request)
+        {
+            await mediator.Send(request);
+            return RedirectToAction(nameof(Index));
         }
 
         public IActionResult Resume()

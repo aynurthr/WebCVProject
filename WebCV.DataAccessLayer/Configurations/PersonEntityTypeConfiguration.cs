@@ -21,7 +21,12 @@ namespace WebCV.DataAccessLayer.Configurations
             builder.Property(m => m.CareerLevel).HasColumnType("int").IsRequired();
             builder.Property(m => m.CreatedAt).HasColumnType("datetime").IsRequired();
 
-            builder.HasKey(m => m.Id);
+
+            builder.Property(m => m.Phone).HasColumnType("varchar").HasMaxLength(30).IsRequired();
+            builder.Property(m => m.Email).HasColumnType("varchar").HasMaxLength(100).IsRequired();
+
+
+        builder.HasKey(m => m.Id);
             builder.ToTable("People");
         }
     }

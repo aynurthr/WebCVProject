@@ -3,11 +3,10 @@ using Microsoft.EntityFrameworkCore;
 using Autofac.Extensions.DependencyInjection;
 using Autofac;
 using Bigon.Presentation;
-using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using WebCV.Application.Services.Identity;
 using WebCV.Infrastructure.Abstracts;
-using Bigon.Application.Services.File;
+using WebCV.Application.Services.File;
 
 namespace WebCV.Presentation
 {

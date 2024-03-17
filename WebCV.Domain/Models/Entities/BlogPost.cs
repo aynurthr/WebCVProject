@@ -9,8 +9,8 @@ namespace WebCV.Domain.Models.Entities
         public string Title { get; set; }
         public string Body { get; set; }
         public string ImagePath { get; set; }
-        public int PublishedBy { get; set; }
-        public DateTime PublishedAt { get; set; }
+        public int? PublishedBy { get; set; }
+        public DateTime? PublishedAt { get; set; }
 
     }
 }

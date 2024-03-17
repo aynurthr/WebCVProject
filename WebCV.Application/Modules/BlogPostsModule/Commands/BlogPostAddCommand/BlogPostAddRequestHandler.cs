@@ -26,7 +26,7 @@ namespace WebCV.Application.Modules.BlogPostsModule.Commands.BlogPostAddCommand
                 Body = request.Body,
             };
 
-            entity.ImagePath = await fileService.UploadAsync(request.Image);
+            entity.ImagePath = await fileService.UploadAsyncImage(request.Image);
 
             await blogPostRepository.AddAsync(entity,cancellationToken);
             await blogPostRepository.SaveAsync(cancellationToken);

@@ -1,10 +1,8 @@
-﻿using System;
-using WebCV.Infrastructure.Concrates;
-using WebCV.Domain.Models.Stables;
+﻿using WebCV.Domain.Models.Stables;
 
-namespace WebCV.Domain.Models.Entities
+namespace WebCV.Application.Modules.PersonModule.Queries.PersonGetAllQuery
 {
-    public class Person
+    public class PersonGetAllRequestDto
     {
         public int Id { get; set; }
         public string FullName { get; set; }
@@ -15,15 +13,8 @@ namespace WebCV.Domain.Models.Entities
         public string Bio { get; set; }
         public string? Fax { get; set; }
         public string? Website { get; set; }
-        public string AttachmentPath { get; set; }
+        public string AttachmentUrl { get; set; }
         public CareerLevels CareerLevel { get; set; }
-        public DateTime CreatedAt { get; set; }
-
-
-        public string Phone { get; set; }
-        public string Email { get; set; }
-
-
 
     }
 }
