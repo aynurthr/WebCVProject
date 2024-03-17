@@ -1,0 +1,151 @@
+﻿@using WebCV.Application.Modules.BlogPostsModule.Queries.BlogPostGetAllQuery
+@model IEnumerable<BlogPostGetAllRequestDto>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<!-- BLOG -->
+<div class="inside-sec">
+    <!-- BIO AND SKILLS -->
+    <h5 class="tittle">
+        BLOG<a class="btn btn-sm btn-success" asp-action="create">
+            <i class="fa fa-plus"></i>
+        </a>
+    </h5>
+    
+
+    <!-- Blog -->
+    <section class="blog blog-page padding-20 padding-top-50 padding-bottom-50 ">
+
+        <!-- Blog Post -->
+        @foreach (var item in Model)
+        {
+            <article>
+                <img class="img-responsive" src="@item.ImageUrl" alt="">
+                <div class="post-info">
+                    <div class="post-in">
+                        <div class="extra"> <span><i class="icon-calendar"></i>Aug 29, 2015</span> <span class="margin-left-15"><i class="icon-user"></i>Admin</span> <span class="margin-left-15"><i class="icon-bubbles"></i> Featured</span></div>
+                        <a href="#." class="tittle-post"> @item.Title </a>
+                        @Html.Raw(item.Body)
+                        <a href="#." class="btn-1">Read More <i class="fa fa-angle-right"></i></a>
+                        <!-- Action Buttons -->
+                        <div class="post-actions">
+                            <a class="btn btn-sm btn-warning" asp-action="Edit" asp-route-id="@item.Id">
+                                <i class="fa fa-pencil"></i>
+                            </a>
+                            <a class="btn btn-sm btn-danger" asp-action="Remove" asp-route-id="@item.Id" data-entity-name="@item.Title" onclick="removeEntity(event)">
+                                <i class="fa fa-trash"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </article>
+        }
+
+
+        <article>
+            <img class="img-responsive" src="~/uploads/images/blog-img-2.jpg" alt="">
+            <div class="post-info">
+                <div class="post-in">
+                    <div class="extra"> <span><i class="icon-calendar"></i>Aug 29, 2015</span> <span class="margin-left-15"><i class="icon-user"></i>Admin</span> <span class="margin-left-15"><i class="icon-bubbles"></i> Featured</span></div>
+                    <a href="#." class="tittle-post"> ENJOYING THE SMALL THINGS </a>
+                    <p>t's time to play the music. It's time to light the lights. It's time to meet the Muppets on the Muppet Show tonight! Boy the way Glen Miller played Songs the hit parade. Guys like us we had it made. Those were the days. These Happy Days are yours and mine Happy Days.</p>
+                    <a href="#." class="btn-1">Read MOre <i class="fa fa-angle-right"></i></a>
+                </div>
+            </div>
+        </article>
+
+        <!-- BLOG POST -->
+        <article>
+            <img class="img-responsive" src="~/uploads/images/blog-img-2.jpg" alt="">
+            <div class="post-info">
+                <div class="post-in">
+                    <div class="extra"> <span><i class="icon-calendar"></i>Aug 29, 2015</span> <span class="margin-left-15"><i class="icon-user"></i>Admin</span> <span class="margin-left-15"><i class="icon-bubbles"></i> Featured</span></div>
+                    <a href="#." class="tittle-post"> ENJOYING THE SMALL THINGS </a>
+                    <p>t's time to play the music. It's time to light the lights. It's time to meet the Muppets on the Muppet Show tonight! Boy the way Glen Miller played Songs the hit parade. Guys like us we had it made. Those were the days. These Happy Days are yours and mine Happy Days.</p>
+                    <a href="#." class="btn-1">Read MOre <i class="fa fa-angle-right"></i></a>
+                </div>
+            </div>
+        </article>
+
+        <!-- BLOG POST -->
+
+        <article>
+            <img class="img-responsive" src="~/uploads/images/blog-img-3.jpg" alt="">
+            <div class="post-info">
+                <div class="post-in">
+                    <div class="extra"> <span><i class="icon-calendar"></i>Aug 29, 2015</span> <span class="margin-left-15"><i class="icon-user"></i>Admin</span> <span class="margin-left-15"><i class="icon-bubbles"></i> Featured</span></div>
+                    <a href="#." class="tittle-post"> ENJOYING THE SMALL THINGS </a>
+                    <p>t's time to play the music. It's time to light the lights. It's time to meet the Muppets on the Muppet Show tonight! Boy the way Glen Miller played Songs the hit parade. Guys like us we had it made. Those were the days. These Happy Days are yours and mine Happy Days.</p>
+                    <a href="#." class="btn-1">Read MOre <i class="fa fa-angle-right"></i></a>
+                </div>
+            </div>
+        </article>
+
+        <!-- Pagination -->
+        <ul class="pagination">
+            <li><a href="#">1</a></li>
+            <li><a href="#">2</a></li>
+            <li><a href="#">3</a></li>
+            <li><a href="#">Next</a></li>
+        </ul>
+    </section>
+</div>
+
+@section addjs {
+    <script>
+        function removeEntity(e) {
+            e.preventDefault();
+            let element = e.currentTarget;
+            $(element).attr('disabled', 'disable');
+
+            const link = $(element).attr('href');
+            const name = $(element).data('entity-name');
+
+            const bigonSwal = Swal.mixin({
+                customClass: {
+                    confirmButton: "btn btn-success",
+                    cancelButton: "btn btn-danger"
+                },
+                buttonsStyling: false
+            });
+            bigonSwal.fire({
+                title: 'Diqqət',
+                text: `"${name}"" adlı məlumatı silmək istədiyinizdən əminsinizmi??`,
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Bəli',
+                cancelButtonText: 'Xeyr',
+                reverseButtons: true
+
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: link,
+                        type: 'POST',
+                        success: function (response) {
+                            alert(`"${name}" silindi.`);
+                            $(element).closest('tr').remove();
+                        }.then(() => {
+                            location.reload(); // Reloads the current page
+                        }),
+                        error: function (errResponse) {
+                            console.log(errResponse);
+                        }
+                    }).always(function () {
+                        $(element).removeAttr('disabled').trigger('blur');
+                    });
+                }
+                else {
+                    $(element).removeAttr('disabled').trigger('blur');
+
+                }
+            });
+
+
+
+        }
+
+    </script>
+}

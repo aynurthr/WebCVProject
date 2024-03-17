@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using WebCV.Application.Services.Identity;
 using WebCV.Infrastructure.Abstracts;
+using Bigon.Application.Services.File;
 
 namespace WebCV.Presentation
 {
@@ -30,6 +31,7 @@ namespace WebCV.Presentation
             builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory(cfg => cfg.RegisterModule<WebCVDIModule>()));
 
             builder.Services.AddScoped<IIdentityService, FakeIdentityService>();
+            builder.Services.AddSingleton<IFileService, FileService>();
             builder.Services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
 
             var app = builder.Build();

@@ -70,7 +70,7 @@
             </li>
             <li class="col-sm-4">
                 <div>
-                <input type="text" class="form-control" name="Email" id="email" placeholder="EMAIL">
+                <input type="email" class="form-control" name="Email" id="email" placeholder="EMAIL">
                 </div>
             </li>
             <li class="col-sm-4">
@@ -112,7 +112,7 @@
                     processData: false,
                     contentType: false,
                     success: function (response) {
-                        alert('oldu sagol');
+                        alert('Your message has been sent successfully.');
                         e.currentTarget.reset();
                     },
                     error: function (errResponse) {
