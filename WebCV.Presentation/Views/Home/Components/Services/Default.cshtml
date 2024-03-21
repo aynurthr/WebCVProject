@@ -1,0 +1,24 @@
+﻿@using WebCV.Application.Modules.ServicesModule.Queries.ServiceGetAllQuery
+@using WebCV.Domain.Models.Stables
+@model IEnumerable<ServiceGetAllRequestDto>
+
+
+
+<div class="row padding-20 margin-top-50">
+
+    @foreach (var item in Model)
+    {
+        <!-- Icon -->
+        <div class="col-md-4 text-center">
+            <div class="icon-box i-large ib-black">
+                <div class="ib-icon"> <i class="fa fa-@item.CssClass"></i> </div>
+                <div class="ib-info">
+                    <h4 class="h6" style="text-transform: uppercase;">@item.Title</h4>
+                    <p>@item.Description</p>
+                </div>
+            </div>
+        </div>
+    }
+    
+</div>
+

@@ -1,0 +1,40 @@
+﻿@using WebCV.Application.Modules.PersonSkillsModule.Queries.PersonSkillGetAllQuery
+@using WebCV.Domain.Models.Stables
+@model IEnumerable<PersonSkillGetAllRequestDto>
+
+
+<div class="panel-group accordion padding-20" id="accordion">
+
+    @foreach (var item in Model)
+    {
+        if (item.Mode == WebCV.Domain.Models.Stables.DisplayMode.ProgressBar)
+        {
+            <div class="panel panel-default">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <!-- PANEL HEADING -->
+                        <div class="panel-heading">
+                            <h4 class="panel-title"> <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" class="collapsed"> @item.SkillName</a> </h4>
+                        </div>
+                    </div>
+
+                    <!-- Skillls Bars -->
+                    <div class="col-sm-8">
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" aria-valuenow="@item.Percentage" aria-valuemin="0" aria-valuemax="100" style="width: @item.Percentage%;"> <span class="sr-only">60% Complete</span> </div>
+                        </div>
+
+                        <!-- Skillls Text -->
+                        <div id="collapseOne" class="panel-collapse collapse">
+                            <div class="panel-body">
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin nibh augue, suscipit a, scelerisque sed, lacinia in, mi. Cras vel lorem.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+
+    }
+</div>
+

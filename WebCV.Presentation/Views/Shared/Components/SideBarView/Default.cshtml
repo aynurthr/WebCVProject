@@ -45,20 +45,24 @@
             <li>
                 <p><span> Phone</span> @Model.Phone </p>
             </li>
-            <li>
-                <p><span> FAX</span> @Model.Fax </p>
-            </li>
+            @if (!string.IsNullOrEmpty(Model.Fax))
+            {
+                <li>
+                    <p><span> FAX</span> @Model.Fax </p>
+                </li>
+            }
             <li>
                 <p>
                     <span> E-mail</span>
                     <a href="#."> @Model.Email </a>
                 </p>
             </li>
-            <li>
-                <p>
+            @if (!string.IsNullOrEmpty(Model.Website))
+            {
+                <li>
                     <span> Website</span><a href="https://@Model.Website"> @Model.Website </a>
-                </p>
-            </li>
+                </li>
+            }
         </ul>
 
         <!-- Attachments -->
