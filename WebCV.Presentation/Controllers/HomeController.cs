@@ -5,7 +5,9 @@ using WebCV.Application.Modules.ContactPostsModule.Commands.ContactPostApplyComm
 using WebCV.Application.Modules.PersonModule.Commands.PersonEditCommand;
 using WebCV.Application.Modules.PersonModule.Queries.PersonGetByIdQuery;
 using WebCV.Application.Modules.PersonSkillsModule.Queries.PersonSkillGetAllQuery;
+using WebCV.Application.Modules.ProjectCategoriesModule.Queries.ProjectCategoryGetAllQuery;
 using WebCV.Presentation.ViewModels.PersonSkillViewModels;
+using WebCV.Presentation.ViewModels.PortfolioViewModels;
 
 namespace WebCV.Presentation.Controllers
 {
@@ -69,9 +71,35 @@ namespace WebCV.Presentation.Controllers
             return View();
         }
 
-        public IActionResult Portfolio()
+
+        public async Task<IActionResult> Portfolio(ProjectCategoryGetAllRequest request)
         {
-            return View();
+            var response = await mediator.Send(request);
+
+            var categories = response
+                .Select(pc => pc.CategoryName.Split(' ')[0].ToLowerInvariant())
+                .Distinct()
+                .ToList();
+
+            var projects = response
+                .GroupBy(pc => pc.ProjectId)
+                .Select(g => new ProjectViewModel
+                {
+                    ProjectId = g.Key,
+                    ProjectName = g.First().ProjectName,
+                    ImagePath = g.First().ImagePath,
+                    Url = g.First().Url,
+                    CategoriesClass = string.Join(" ", g.Select(pc => pc.CategoryName.Split(' ')[0].ToLowerInvariant()).Distinct())
+                })
+                .ToList();
+
+            var viewModel = new PortfolioViewModel
+            {
+                Categories = categories,
+                Projects = projects
+            };
+
+            return View(viewModel);
         }
 
         public IActionResult Blog()
