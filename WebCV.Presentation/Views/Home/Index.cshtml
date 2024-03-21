@@ -69,7 +69,7 @@
                       <!-- I’m Web Designer -->
                       <h5 class="tittle">I’m Web Designer</h5>
                       <div class="padding-20">
-                        @Model.Bio
+                        @Html.Raw(Model.Bio)
                       </div>
                       
                       <!-- Services -->
@@ -79,11 +79,7 @@
                       <h5 class="tittle">Skills</h5>
                       
                       <!-- Sound Engineering -->
-                      <div class="panel-group accordion padding-20" id="accordion">
-                @await Component.InvokeAsync("PersonSkills");
-
-
-                      </div>
+                        @await Component.InvokeAsync("PersonSkills")
                     </section>
                   </div>
                 </div>

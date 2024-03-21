@@ -1,8 +1,11 @@
-﻿using MediatR;
+﻿using Azure.Core;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using WebCV.Application.Modules.ContactPostsModule.Commands.ContactPostApplyCommand;
 using WebCV.Application.Modules.PersonModule.Commands.PersonEditCommand;
 using WebCV.Application.Modules.PersonModule.Queries.PersonGetByIdQuery;
+using WebCV.Application.Modules.PersonSkillsModule.Queries.PersonSkillGetAllQuery;
+using WebCV.Presentation.ViewModels.PersonSkillViewModels;
 
 namespace WebCV.Presentation.Controllers
 {
@@ -35,9 +38,30 @@ namespace WebCV.Presentation.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        public IActionResult Resume()
+        public async Task<IActionResult> Resume(PersonSkillGetAllRequest request)
         {
-            return View();
+            var response = await mediator.Send(request);
+
+            var skillsByTypeAndGroup = response
+                .GroupBy(s => new { s.TypeId, s.TypeName })
+                .Select(typeGroup => new SkillTypeGroupViewModel // Replace with actual ViewModel
+                {
+                    TypeId = typeGroup.Key.TypeId,
+                    TypeName = typeGroup.Key.TypeName,
+                    Groups = typeGroup
+                                .GroupBy(s => new { s.GroupId, s.GroupName })
+                                .Select(groupGroup => new SkillGroupViewModel // Replace with actual ViewModel
+                                {
+                                    GroupId = groupGroup.Key.GroupId,
+                                    GroupName = groupGroup.Key.GroupName,
+                                    Skills = groupGroup.ToList()
+                                })
+                                .ToList()
+                })
+                .ToList();
+
+            return View(skillsByTypeAndGroup);
+
         }
 
         public IActionResult Contact()

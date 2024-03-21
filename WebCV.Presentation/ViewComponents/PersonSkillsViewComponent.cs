@@ -17,6 +17,5 @@ namespace WebCV.Presentation.ViewComponents
             var response = await mediator.Send(request);
             return View(response);
         }
-
     }
 }

@@ -9,6 +9,6 @@ namespace WebCV.Domain.Models.Entities
         public int PersonId { get; set; }
         public int SkillId { get; set; }
         public DisplayMode Mode { get; set; }
-        public byte Percentage { get; set; }
+        public byte? Percentage { get; set; }
     }
 }

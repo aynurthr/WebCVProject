@@ -8,6 +8,7 @@ namespace WebCV.Domain.Models.Entities
         public int Id { get; set; }
         public int GroupId { get; set; }
         public string Name { get; set; }
+        public string Bio { get; set; }
 
     }
 }

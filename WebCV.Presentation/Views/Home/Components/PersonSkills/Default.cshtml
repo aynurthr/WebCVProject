@@ -3,31 +3,39 @@
 @model IEnumerable<PersonSkillGetAllRequestDto>
 
 
-<div class="panel-group accordion padding-20" id="accordion">
-
+<div class="panel-group accordion" id="accordion" style="padding-top: 20px; padding-right: 20px; padding-left: 20px;">
+    @{
+        var index = 0; // Initialize a counter for unique IDs
+    }
     @foreach (var item in Model)
     {
-        if (item.Mode == WebCV.Domain.Models.Stables.DisplayMode.ProgressBar)
+        if (item.Mode == DisplayMode.ProgressBar)
         {
+            var collapseId = $"collapse-{index++}";
+
             <div class="panel panel-default">
                 <div class="row">
                     <div class="col-sm-4">
                         <!-- PANEL HEADING -->
                         <div class="panel-heading">
-                            <h4 class="panel-title"> <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" class="collapsed"> @item.SkillName</a> </h4>
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion" href="#@collapseId" class="collapsed">
+                                    @item.SkillName
+                                </a>
+                            </h4>
                         </div>
                     </div>
 
-                    <!-- Skillls Bars -->
+                    <!-- Skills Bars -->
                     <div class="col-sm-8">
                         <div class="progress">
                             <div class="progress-bar" role="progressbar" aria-valuenow="@item.Percentage" aria-valuemin="0" aria-valuemax="100" style="width: @item.Percentage%;"> <span class="sr-only">60% Complete</span> </div>
                         </div>
 
-                        <!-- Skillls Text -->
-                        <div id="collapseOne" class="panel-collapse collapse">
+                        <!-- Skills Text -->
+                        <div id="@collapseId" class="panel-collapse collapse">
                             <div class="panel-body">
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin nibh augue, suscipit a, scelerisque sed, lacinia in, mi. Cras vel lorem.</p>
+                                <p>@item.Bio</p>
                             </div>
                         </div>
                     </div>
